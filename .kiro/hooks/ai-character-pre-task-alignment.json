@@ -1,0 +1,14 @@
+{
+  "version": "v1",
+  "hooks": [
+    {
+      "name": "Align AI Character Spec Before Task",
+      "trigger": "PreTaskExec",
+      "description": "Loads the AI virtual character specification and applicable steering before a spec task begins, checking scope and acceptance-criteria traceability.",
+      "action": {
+        "type": "agent",
+        "prompt": "Before implementing this task, read the active feature's requirements.md, design.md, and tasks.md plus the relevant .kiro/steering files. Confirm the task maps to acceptance criteria and follows the approved data, privacy, accessibility, and provider-boundary design. Do not broaden scope. If the task conflicts with the specification or its acceptance criteria, stop implementation and update the appropriate spec artifact before coding."
+      }
+    }
+  ]
+}

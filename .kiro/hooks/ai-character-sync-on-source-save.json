@@ -1,0 +1,15 @@
+{
+  "version": "v1",
+  "hooks": [
+    {
+      "name": "Synchronize AI Character Artifacts",
+      "trigger": "PostFileSave",
+      "description": "Reviews agent-made AI character source changes against the feature specification and updates only the durable artifact that must change.",
+      "matcher": "^src/(features/virtual-character/.*\\.(ts|tsx)|components/Story\\.tsx|App\\.tsx|types\\.ts|logic\\.ts)$",
+      "action": {
+        "type": "agent",
+        "prompt": "Review this saved AI virtual character related source change against `.kiro/specs/ai-virtual-character/`. Update requirements.md only when a deliberate user-visible behavior changed; update design.md when architecture, contracts, persistence, error handling, privacy, or data flow changed; update tasks.md when scope, dependencies, or completion state changed. Promote a rule to steering only if it is stable and applies across features. Do not add one-off implementation details to steering and do not modify unrelated specs."
+      }
+    }
+  ]
+}

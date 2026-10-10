@@ -1,6 +1,6 @@
 export type BookId = 'ielts' | 'cet6' | 'hkdse' | 'a1' | 'a2' | 'b1' | 'b2'
 export type Lang = 'zh-CN' | 'zh-HK' | 'en'
-export type Page = 'home' | 'setup' | 'map' | 'reader' | 'challenge' | 'notes' | 'progress'
+export type Page = 'home' | 'setup' | 'map' | 'reader' | 'challenge' | 'notes' | 'progress' | 'review'
 
 export interface Word {
   word: string

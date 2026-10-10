@@ -40,3 +40,24 @@ export function speakWord(word: string) {
   utterance.rate = 0.85
   window.speechSynthesis.speak(utterance)
 }
+
+
+export function speakText(text: string, lang: Lang, options: { rate?: number; onStart?: () => void; onEnd?: () => void } = {}): boolean {
+  if (typeof window === 'undefined' || !('speechSynthesis' in window)) return false
+  try {
+    window.speechSynthesis.cancel()
+    const { voice } = pickVoice(lang)
+    const utterance = new SpeechSynthesisUtterance(text)
+    utterance.lang = voice?.lang || (lang === 'zh-HK' ? 'zh-CN' : lang)
+    utterance.voice = voice || null
+    utterance.rate = options.rate ?? 0.92
+    utterance.onstart = () => options.onStart?.()
+    utterance.onend = () => options.onEnd?.()
+    utterance.onerror = () => options.onEnd?.()
+    window.speechSynthesis.speak(utterance)
+    return true
+  } catch {
+    options.onEnd?.()
+    return false
+  }
+}

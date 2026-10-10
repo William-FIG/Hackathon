@@ -11,7 +11,7 @@ npm install
 npm run dev
 ```
 
-打开终端给出的本地地址，通常是 `http://localhost:5173/`。无需后端、账号、数据库或 API Key。
+打开终端给出的本地地址，通常是 `http://localhost:5173/`。默认本地学习模式无需后端、账号、数据库或 API Key。
 
 ```bash
 npm run build
@@ -20,6 +20,16 @@ npm run test:e2e
 ```
 
 `test:e2e` 自动启动临时 Vite 服务。Windows 默认使用系统 Edge；其他系统请先执行 `npx playwright install chromium`，或设置 `PLAYWRIGHT_BROWSER_EXECUTABLE` 为浏览器可执行文件路径。截图保存在本地忽略目录 `artifacts/`。
+
+## 可选：Vercel + DeepSeek 虚拟角色聊天
+
+默认的本地学习和 scripted 角色不需要外部服务。若要启用受用户同意控制的 DeepSeek 角色聊天，请将本项目部署到 Vercel；根目录的 `api/character-chat.ts` 会自动提供同源的 `POST /api/character-chat`。
+
+1. 在 Vercel Project Settings → Environment Variables 中配置以下**服务器端**变量，并分别选择需要的 Preview / Production 环境：`DEEPSEEK_API_KEY`、`DEEPSEEK_BASE_URL`、`DEEPSEEK_MODEL`；可选配置 `CHARACTER_CHAT_TIMEOUT_MS`（3000–30000，默认 15000）。变量名不得使用 `VITE_` 前缀。
+2. 以 `.env.example` 为模板创建本地 `.env.local`，不要提交该文件。`npm run dev` 只运行 Vite 前端；使用 Vercel Preview 或 `npx vercel dev` 才能在本地启动 `/api/character-chat`。
+3. 使用 `npm run typecheck:api` 检查 Vercel 函数，再使用 `npx vercel` 创建 Preview 或 `npx vercel --prod` 部署 Production。
+
+该接口只接受当前语言、词书/章节位置、粗粒度学习事件、已作答后的目标词与释义，以及用户输入的聊天消息。它不会接收笔记全文、完整学习进度或浏览器端密钥；函数错误时，客户端应显示本地 scripted 角色回退，而不能阻塞背词流程。
 
 ## V2 功能
 

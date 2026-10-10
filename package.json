@@ -6,6 +6,7 @@
   "scripts": {
     "dev": "vite --host 0.0.0.0",
     "build": "tsc -b && vite build",
+    "typecheck:api": "tsc -p tsconfig.api.json --noEmit",
     "preview": "vite preview --host 0.0.0.0",
     "test": "vitest run",
     "test:e2e": "node scripts/smoke.mjs"

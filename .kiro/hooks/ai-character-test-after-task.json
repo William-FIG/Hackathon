@@ -1,0 +1,15 @@
+{
+  "version": "v1",
+  "hooks": [
+    {
+      "name": "Test AI Character Spec Task",
+      "trigger": "PostTaskExec",
+      "description": "Runs the existing non-watch Vitest suite after an AI virtual character spec task is completed.",
+      "action": {
+        "type": "command",
+        "command": "npm test",
+        "timeout": 120
+      }
+    }
+  ]
+}
